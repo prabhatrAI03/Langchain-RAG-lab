@@ -39,7 +39,7 @@ def ask(video_id: str, question: str):
     })
 
     parser = StrOutputParser()
-    llm = ChatOllama(model="ministral-3:8b", temperature=0.2)
+    llm = ChatOllama(model="nemotron-3-super:cloud", temperature=0.2)
 
     prompt = PromptTemplate(
         template="""
