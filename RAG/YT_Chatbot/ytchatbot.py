@@ -1,32 +1,34 @@
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
+from utils.transcripts import fetch_transcript
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_ollama import ChatOllama, OllamaEmbeddings
-from langchain_community.vectorstores import FAISS
+# from langchain_community.vectorstores import FAISS
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
+from langchain_chroma import Chroma
+from utils.splitter import split_transcript
 
 def ask(video_id: str, question: str):
-    try:
-       
-        ytt_api = YouTubeTranscriptApi()
-        transcript_list =ytt_api.fetch(video_id,languages=['hi'])
-        transcript = " ".join(getattr(chunk, "text", "") for chunk in transcript_list)
-    except TranscriptsDisabled:
-        return "No captions available for this video."
-    except Exception as e:
-        return f"Error fetching transcript: {e}"
+    transcript = fetch_transcript(video_id)
 
 
-    #--------------INDEXING--------------------------------------
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    chunks = splitter.create_documents([transcript])
+    #-----------------------------------INDEXING------------------------------------------------------
+    chunks=split_transcript(transcript)
 
     # Generate embedding and store in vector store
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
-    vector_store = FAISS.from_documents(chunks, embeddings)
+    # vector_store = FAISS.from_documents(chunks, embeddings)
 
-    #----------------Building a Chain---------------------------------------------------
+    vector_store = Chroma.from_documents(
+    documents=chunks,
+    embedding=embeddings,
+    collection_name="youtube_chatbot",
+    persist_directory="./chroma_langchain_db",
+    )
+
+
+    #-------------------------------Building a Chain---------------------------------------------------
     def format_docs(retrieved_docs):
         context_text = "\n\n".join(doc.page_content for doc in retrieved_docs)
         return context_text
@@ -38,7 +40,7 @@ def ask(video_id: str, question: str):
         'question': RunnablePassthrough()   # passes the question unchanged.
     })
 
-    parser = StrOutputParser()
+    parser = StrOutputParser() #It converts the LLM output into a plain Python string
     llm = ChatOllama(model="nemotron-3-super:cloud", temperature=0.2)
 
     prompt = PromptTemplate(
