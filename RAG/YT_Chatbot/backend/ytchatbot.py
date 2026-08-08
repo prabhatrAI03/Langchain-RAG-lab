@@ -17,7 +17,10 @@ def ask(video_id: str, question: str):
     chunks=split_transcript(transcript)
 
     # Generate embedding and store in vector store
-    embeddings = OllamaEmbeddings(model="nomic-embed-text")
+    embeddings = OllamaEmbeddings(
+    model="nomic-embed-text",
+    base_url="http://host.docker.internal:11434"
+)
     # vector_store = FAISS.from_documents(chunks, embeddings)
 
     vector_store = Chroma.from_documents(
@@ -41,7 +44,7 @@ def ask(video_id: str, question: str):
     })
 
     parser = StrOutputParser() #It converts the LLM output into a plain Python string
-    llm = ChatOllama(model="nemotron-3-super:cloud", temperature=0.2)
+    llm = ChatOllama(model="nemotron-3-super:cloud", base_url="http://host.docker.internal:11434",temperature=0.2)
 
     prompt = PromptTemplate(
         template="""

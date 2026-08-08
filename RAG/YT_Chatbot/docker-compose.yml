@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: yt_backend
+
+    ports:
+      - "8000:8000"
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: yt_frontend
+
+    ports:
+      - "8501:8501"
+
+    depends_on:
+      - backend
