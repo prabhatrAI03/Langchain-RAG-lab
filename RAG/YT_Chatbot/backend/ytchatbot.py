@@ -2,16 +2,21 @@ from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
 from utils.transcripts import fetch_transcript
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_ollama import ChatOllama, OllamaEmbeddings
-# from langchain_community.vectorstores import FAISS
+from services.summary import get_summary_prompt 
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_chroma import Chroma
 from utils.splitter import split_transcript
+from services.interview import get_interview_prompt 
+from services.quiz import get_quiz_prompt
 
-def ask(video_id: str, question: str):
+
+
+
+
+def ask(video_id: str, question: str, prompt):
     transcript = fetch_transcript(video_id)
-
 
     #-----------------------------------INDEXING------------------------------------------------------
     chunks=split_transcript(transcript)
@@ -20,8 +25,8 @@ def ask(video_id: str, question: str):
     embeddings = OllamaEmbeddings(
     model="nomic-embed-text",
     base_url="http://host.docker.internal:11434"
-)
-    # vector_store = FAISS.from_documents(chunks, embeddings)
+    )
+
 
     vector_store = Chroma.from_documents(
     documents=chunks,
@@ -29,6 +34,7 @@ def ask(video_id: str, question: str):
     collection_name="youtube_chatbot",
     persist_directory="./chroma_langchain_db",
     )
+
 
 
     #-------------------------------Building a Chain---------------------------------------------------
@@ -46,18 +52,8 @@ def ask(video_id: str, question: str):
     parser = StrOutputParser() #It converts the LLM output into a plain Python string
     llm = ChatOllama(model="nemotron-3-super:cloud", base_url="http://host.docker.internal:11434",temperature=0.2)
 
-    prompt = PromptTemplate(
-        template="""
-      You are a helpful assistant.
-      Answer ONLY from the provided transcript context.
-      If the context is insufficient, just say you don't know.
-
-      {context}
-      Question: {question}
-    """,
-        input_variables=['context', 'question']
-    )
 
     main_chain = parallel_chain | prompt | llm | parser
 
     return main_chain.invoke(question)
+    

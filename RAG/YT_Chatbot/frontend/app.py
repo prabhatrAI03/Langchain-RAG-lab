@@ -1,48 +1,88 @@
 import streamlit as st
 import requests
 
-# ------------------------------
-# Streamlit Page Configuration
-# ------------------------------
+# ------------------------------------------------
+# Page Configuration
+# ------------------------------------------------
 st.set_page_config(
-    page_title="YouTube RAG Chatbot",
+    page_title="YouTube AI Assistant",
+    page_icon="🎥",
     layout="centered"
 )
 
-st.title("🎥 YouTube RAG Chatbot")
+# ------------------------------------------------
+# Header
+# ------------------------------------------------
+st.title("🎥 YouTube AI Assistant")
+st.markdown(
+    """
+Ask your YouTube video to:
 
-# ------------------------------
-# User Inputs
-# ------------------------------
+- 📝 Summarize the video
+- 💼 Generate Interview Questions
+- ❓ Generate Quiz Questions
+"""
+)
+
+st.divider()
+
+# ------------------------------------------------
+# Inputs
+# ------------------------------------------------
 video_url = st.text_input(
-    "Enter YouTube Video URL",
+    "🔗 YouTube Video URL",
     placeholder="https://www.youtube.com/watch?v=..."
 )
 
 question = st.text_area(
-    "Ask your question",
-    placeholder="What is this video about?"
+    "💬 What would you like to do?",
+    placeholder="""
+Examples:
+• Summarize this video
+• Generate interview questions
+• Generate 10 quiz questions
+""",
+    height=120
 )
 
-# ------------------------------
+# ------------------------------------------------
 # Ask Button
-# ------------------------------
-if st.button("Ask"):
+# ------------------------------------------------
+if st.button("🚀 Generate", use_container_width=True):
 
     if not video_url:
-        st.warning("Please enter a YouTube URL.")
+        st.warning("Please enter a YouTube Video URL.")
 
     elif not question:
-        st.warning("Please enter a question.")
+        st.warning("Please enter your request.")
 
     else:
 
-        with st.spinner("Generating response..."):
+        # ------------------------------------------
+        # Decide Endpoint
+        # ------------------------------------------
+        q = question.lower()
+
+        if any(word in q for word in [
+            "quiz",
+            "mcq",
+            "multiple choice",
+            "test",
+            "practice questions"
+        ]):
+            endpoint = "/quiz"
+        else:
+            endpoint = "/chat"
+
+        # ------------------------------------------
+        # Call Backend
+        # ------------------------------------------
+        with st.spinner("🤖 Thinking..."):
 
             try:
 
                 response = requests.post(
-                    "http://backend:8000/chat",   # Use this when running with Docker Compose
+                    f"http://backend:8000{endpoint}",
                     json={
                         "video_url": video_url,
                         "question": question
@@ -54,9 +94,10 @@ if st.button("Ask"):
 
                     data = response.json()
 
-                    st.success("Answer Generated")
+                    st.success("✅ Response Generated")
 
-                    st.write(data["answer"])
+                    st.markdown("---")
+                    st.markdown(data["answer"])
 
                 else:
 
@@ -67,10 +108,10 @@ if st.button("Ask"):
             except requests.exceptions.ConnectionError:
 
                 st.error(
-                    "Unable to connect to FastAPI backend.\n"
+                    "❌ Unable to connect to the FastAPI backend.\n\n"
                     "Make sure the backend container is running."
                 )
 
             except Exception as e:
 
-                st.error(str(e))
+                st.error(f"Error: {e}")
