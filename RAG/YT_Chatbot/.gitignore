@@ -1,0 +1,54 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Chroma / Vector Database
+# =========================
+chroma_langchain_db/
+
+# =========================
+# Node / React
+# =========================
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.temp
