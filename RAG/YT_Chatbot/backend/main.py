@@ -6,9 +6,20 @@ from langchain_core.prompts import PromptTemplate
 from services.summary import get_summary_prompt
 from services.interview import get_interview_prompt
 from services.quiz import get_quiz_prompt
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost",
+        "http://127.0.0.1",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 class ChatRequest(BaseModel):
     video_url: str
     question: str

@@ -1,0 +1,286 @@
+.response-card {
+  backdrop-filter: blur(16px);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(30, 58, 73, 0.3) 100%);
+  border: 1.5px solid rgba(59, 130, 246, 0.3);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin: 2.5rem 0;
+  animation: slideUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 40px rgba(59, 130, 246, 0.15);
+  transition: all 0.4s ease;
+}
+
+.response-card:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 12px 48px rgba(59, 130, 246, 0.25);
+}
+
+.response-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+}
+
+.response-title {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #e0e7ff;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.response-content {
+  margin-bottom: 2rem;
+  line-height: 1.8;
+  max-height: 650px;
+  overflow-y: auto;
+  padding-right: 0.75rem;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.response-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.response-content::-webkit-scrollbar-track {
+  background: rgba(59, 130, 246, 0.08);
+  border-radius: 3px;
+}
+
+.response-content::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.4);
+  border-radius: 3px;
+}
+
+.response-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.6);
+}
+
+.response-markdown {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.response-markdown h1,
+.response-markdown h2,
+.response-markdown h3,
+.response-markdown h4,
+.response-markdown h5,
+.response-markdown h6 {
+  color: #e0e7ff;
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.response-markdown h1:first-child,
+.response-markdown h2:first-child,
+.response-markdown h3:first-child {
+  margin-top: 0;
+}
+
+.response-markdown p {
+  margin: 1rem 0;
+  line-height: 1.8;
+}
+
+.response-markdown ul,
+.response-markdown ol {
+  margin: 1.25rem 0;
+  padding-left: 2.5rem;
+}
+
+.response-markdown li {
+  margin: 0.6rem 0;
+  line-height: 1.7;
+}
+
+.response-markdown strong {
+  color: #93c5fd;
+  font-weight: 700;
+}
+
+.response-markdown em {
+  color: #bfdbfe;
+  font-style: italic;
+}
+
+.response-markdown code {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.response-markdown pre {
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 4px solid #3b82f6;
+  padding: 1.25rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.response-markdown pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #93c5fd;
+}
+
+.response-markdown blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1.5rem;
+  margin-left: 0;
+  color: #a5b4fc;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.response-markdown table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0;
+}
+
+.response-markdown th,
+.response-markdown td {
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.response-markdown th {
+  background: rgba(59, 130, 246, 0.1);
+  font-weight: 700;
+  color: #93c5fd;
+}
+
+.response-actions {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(59, 130, 246, 0.2);
+}
+
+.action-button {
+  flex: 1;
+  padding: 0.85rem 1.25rem;
+  border: 1.5px solid rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+  color: #93c5fd;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  animation: float-up 0.5s ease-out 0.3s both;
+  position: relative;
+}
+
+.action-button:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.15) 100%);
+  border-color: rgba(59, 130, 246, 0.7);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+}
+
+.action-button:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.15s ease;
+}
+
+.copy-button {
+  border-color: rgba(6, 182, 212, 0.4);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(34, 211, 238, 0.05) 100%);
+  color: #67e8f9;
+}
+
+.copy-button:hover {
+  border-color: rgba(6, 182, 212, 0.7);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(34, 211, 238, 0.15) 100%);
+  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
+}
+
+.regenerate-button {
+  border-color: rgba(139, 92, 246, 0.4);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+  color: #d8b4fe;
+}
+
+.regenerate-button:hover {
+  border-color: rgba(139, 92, 246, 0.7);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(168, 85, 247, 0.15) 100%);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+}
+
+@media (max-width: 768px) {
+  .response-card {
+    padding: 1.75rem;
+    margin: 1.75rem 0;
+    border-radius: 14px;
+  }
+
+  .response-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .response-title {
+    font-size: 1.35rem;
+  }
+
+  .response-markdown {
+    font-size: 0.9rem;
+  }
+
+  .response-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .action-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .response-card {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .response-title {
+    font-size: 1.15rem;
+  }
+
+  .response-markdown {
+    font-size: 0.85rem;
+  }
+
+  .response-content {
+    max-height: 500px;
+    margin-bottom: 1.5rem;
+  }
+
+  .response-markdown ul,
+  .response-markdown ol {
+    padding-left: 1.75rem;
+  }
+
+  .action-button {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+  }
+}

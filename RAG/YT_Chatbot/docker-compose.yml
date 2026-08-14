@@ -16,7 +16,10 @@ services:
     container_name: yt_frontend
 
     ports:
-      - "8501:8501"
+      - "80:80"
+
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
 
     depends_on:
       - backend

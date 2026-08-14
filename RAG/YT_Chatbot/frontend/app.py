@@ -82,7 +82,7 @@ if st.button("🚀 Generate", use_container_width=True):
             try:
 
                 response = requests.post(
-                    f"http://backend:8000{endpoint}",
+                    f"http://localhost:8000{endpoint}",
                     json={
                         "video_url": video_url,
                         "question": question

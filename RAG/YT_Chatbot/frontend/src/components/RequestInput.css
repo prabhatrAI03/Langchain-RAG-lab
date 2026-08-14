@@ -1,0 +1,81 @@
+.request-input-container {
+  margin-bottom: 2.5rem;
+  animation: slideUp 0.8s ease-out;
+}
+
+.input-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e0e7ff;
+  margin-bottom: 1rem;
+  letter-spacing: 0.3px;
+}
+
+.textarea-wrapper {
+  position: relative;
+  backdrop-filter: blur(16px);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(30, 58, 73, 0.3) 100%);
+  border: 1.5px solid rgba(59, 130, 246, 0.3);
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+}
+
+.textarea-wrapper:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(30, 58, 73, 0.5) 100%);
+  box-shadow: 0 12px 48px rgba(59, 130, 246, 0.2);
+}
+
+.textarea-wrapper:focus-within {
+  border-color: rgba(59, 130, 246, 0.7);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(30, 58, 73, 0.7) 100%);
+  box-shadow: 0 16px 64px rgba(59, 130, 246, 0.3);
+  animation: subtleGlow 0.8s ease-in-out;
+}
+
+.request-textarea {
+  width: 100%;
+  padding: 1.25rem;
+  background: transparent;
+  border: none;
+  color: #e0e7ff;
+  font-size: 0.95rem;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.6;
+  min-height: 140px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.request-textarea::placeholder {
+  color: #64748b;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .request-input-container {
+    margin-bottom: 2rem;
+  }
+
+  .request-textarea {
+    font-size: 0.9rem;
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .textarea-wrapper {
+    border-radius: 12px;
+  }
+
+  .request-textarea {
+    padding: 1rem;
+    min-height: 100px;
+  }
+}

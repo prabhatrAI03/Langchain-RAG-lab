@@ -1,0 +1,124 @@
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  margin: 2rem 0;
+  animation: slideUp 0.6s ease-out;
+}
+
+.loading-container {
+  text-align: center;
+  backdrop-filter: blur(16px);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(30, 58, 73, 0.3) 100%);
+  border: 1.5px solid rgba(59, 130, 246, 0.3);
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 8px 40px rgba(59, 130, 246, 0.15);
+  animation: float-up 0.6s ease-out;
+}
+
+.loading-spinner {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1.75rem;
+}
+
+.spinner-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin-ring 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.spinner-ring:nth-child(1) {
+  border-top-color: #3b82f6;
+  border-right-color: #3b82f6;
+  animation-delay: 0s;
+}
+
+.spinner-ring:nth-child(2) {
+  border-bottom-color: #06b6d4;
+  border-left-color: #06b6d4;
+  animation-delay: 0.4s;
+  width: 65px;
+  height: 65px;
+  top: 12.5px;
+  left: 12.5px;
+}
+
+.spinner-ring:nth-child(3) {
+  border-top-color: #8b5cf6;
+  border-right-color: #8b5cf6;
+  animation-delay: 0.8s;
+  width: 40px;
+  height: 40px;
+  top: 25px;
+  left: 25px;
+}
+
+@keyframes spin-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-message {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  animation: fadeIn 0.5s ease-out, subtle-pulse 2s ease-in-out infinite;
+  min-height: 1.5em;
+}
+
+@keyframes pulse-text {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .loading-state {
+    padding: 2.5rem 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .loading-container {
+    padding: 2rem;
+    border-radius: 14px;
+  }
+
+  .loading-message {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-state {
+    padding: 2rem 1rem;
+  }
+
+  .loading-container {
+    padding: 1.75rem;
+    max-width: 100%;
+  }
+
+  .loading-spinner {
+    width: 70px;
+    height: 70px;
+  }
+
+  .loading-message {
+    font-size: 0.95rem;
+  }
+}
